@@ -162,4 +162,67 @@ onMounted(() => {
   justify-content: center;
   margin-top: 20px;
 }
+
+:deep(.el-card) {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+}
+
+:deep(.el-card__header) {
+  border-bottom: 1px solid var(--border-color);
+  color: var(--neon-cyan);
+}
+
+:deep(.el-table) {
+  background: transparent;
+  --el-table-bg-color: transparent;
+  --el-table-tr-bg-color: transparent;
+  --el-table-header-bg-color: var(--bg-secondary);
+  --el-table-row-hover-bg-color: rgba(0, 255, 245, 0.1);
+  --el-table-border-color: var(--border-color);
+  --el-table-text-color: var(--text-primary);
+  --el-table-header-text-color: var(--neon-cyan);
+}
+
+:deep(.el-table--striped .el-table__body tr.el-table__row--striped td) {
+  background: rgba(26, 26, 46, 0.5);
+}
+
+:deep(.el-dialog) {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+}
+
+:deep(.el-dialog__header) {
+  color: var(--neon-pink);
+}
+
+:deep(.el-dialog__title) {
+  color: var(--neon-pink);
+}
+
+:deep(.el-form-item__label) {
+  color: var(--text-secondary);
+}
+
+:deep(.el-input__wrapper) {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  box-shadow: none;
+}
+
+:deep(.el-input__inner) {
+  color: var(--text-primary);
+}
+
+:deep(.el-textarea__inner) {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+:deep(.el-button--primary) {
+  background: var(--gradient-btn);
+  border: none;
+}
 </style>

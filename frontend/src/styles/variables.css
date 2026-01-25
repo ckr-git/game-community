@@ -1,0 +1,51 @@
+:root {
+  /* 背景色系 */
+  --bg-primary: #0d0d1a;
+  --bg-secondary: #1a1a2e;
+  --bg-tertiary: #16213e;
+  --bg-card: rgba(26, 26, 46, 0.85);
+  --bg-card-solid: #1a1a2e;
+  --bg-hover: rgba(0, 255, 245, 0.1);
+  --bg-active: rgba(0, 255, 245, 0.15);
+
+  /* 霓虹强调色 */
+  --neon-cyan: #00fff5;
+  --neon-pink: #ff00ff;
+  --neon-purple: #bd00ff;
+  --neon-blue: #00d4ff;
+  --neon-green: #00ff88;
+
+  /* 文字色系 */
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0c0;
+  --text-muted: #6a6a8a;
+  --text-highlight: #00fff5;
+
+  /* 边框 */
+  --border-color: rgba(0, 255, 245, 0.2);
+  --border-glow: rgba(0, 255, 245, 0.5);
+  --border-pink: rgba(255, 0, 255, 0.3);
+
+  /* 阴影 */
+  --shadow-neon: 0 0 20px rgba(0, 255, 245, 0.3);
+  --shadow-pink: 0 0 20px rgba(255, 0, 255, 0.3);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.5);
+
+  /* 渐变 */
+  --gradient-cyber: linear-gradient(135deg, #00fff5 0%, #ff00ff 100%);
+  --gradient-bg: linear-gradient(180deg, #0d0d1a 0%, #1a1a2e 100%);
+  --gradient-card: linear-gradient(135deg, rgba(0, 255, 245, 0.1) 0%, rgba(255, 0, 255, 0.1) 100%);
+  --gradient-btn: linear-gradient(90deg, #00fff5 0%, #00d4ff 100%);
+
+  /* 尺寸 */
+  --header-height: 64px;
+  --footer-height: 60px;
+  --sidebar-width: 220px;
+  --border-radius: 8px;
+  --border-radius-lg: 12px;
+
+  /* 过渡 */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}

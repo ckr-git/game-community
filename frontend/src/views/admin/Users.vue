@@ -55,13 +55,13 @@ const pageSize = ref(10)
 const total = ref(0)
 
 const loadUsers = async () => {
-  // 模拟数据，实际应调用用户列表API
-  users.value = [
-    { id: 1, username: 'admin', nickname: '管理员', email: 'admin@example.com', role: 2, status: 1 },
-    { id: 2, username: 'user1', nickname: '用户1', email: 'user1@example.com', role: 1, status: 1 },
-    { id: 3, username: 'user2', nickname: '用户2', email: 'user2@example.com', role: 1, status: 0 }
-  ]
-  total.value = 3
+  try {
+    const res = await userApi.getUserList({ pageNum: pageNum.value, pageSize: pageSize.value })
+    users.value = res.data.records || []
+    total.value = res.data.total || 0
+  } catch (error) {
+    console.error('加载用户列表失败', error)
+  }
 }
 
 const toggleStatus = async (row) => {
@@ -88,5 +88,30 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+}
+
+:deep(.el-card) {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+}
+
+:deep(.el-card__header) {
+  border-bottom: 1px solid var(--border-color);
+  color: var(--neon-cyan);
+}
+
+:deep(.el-table) {
+  background: transparent;
+  --el-table-bg-color: transparent;
+  --el-table-tr-bg-color: transparent;
+  --el-table-header-bg-color: var(--bg-secondary);
+  --el-table-row-hover-bg-color: rgba(0, 255, 245, 0.1);
+  --el-table-border-color: var(--border-color);
+  --el-table-text-color: var(--text-primary);
+  --el-table-header-text-color: var(--neon-cyan);
+}
+
+:deep(.el-table--striped .el-table__body tr.el-table__row--striped td) {
+  background: rgba(26, 26, 46, 0.5);
 }
 </style>

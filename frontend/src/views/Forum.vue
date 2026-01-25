@@ -124,8 +124,7 @@ const submitPost = async () => {
 }
 
 const goToPost = (id) => {
-  // router.push(`/forum/${id}`)
-  ElMessage.info('帖子详情页面开发中')
+  router.push(`/forum/${id}`)
 }
 
 onMounted(() => {
@@ -136,7 +135,7 @@ onMounted(() => {
 
 <style scoped>
 .forum-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -147,28 +146,30 @@ onMounted(() => {
   align-items: center;
   margin-bottom: 20px;
   padding: 20px;
-  background: white;
-  border-radius: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
 }
 
 .post-card {
   margin-bottom: 15px;
   cursor: pointer;
-  transition: box-shadow 0.3s;
+  transition: var(--transition-fast);
 }
 
 .post-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 15px rgba(0, 255, 245, 0.2);
 }
 
 .post-title {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 10px;
+  color: var(--text-primary);
 }
 
 .post-content {
-  color: #666;
+  color: var(--text-secondary);
   margin-bottom: 15px;
   line-height: 1.6;
 }
@@ -176,7 +177,7 @@ onMounted(() => {
 .post-footer {
   display: flex;
   gap: 20px;
-  color: #999;
+  color: var(--text-muted);
   font-size: 14px;
 }
 
@@ -188,12 +189,12 @@ onMounted(() => {
 
 .hot-post-item {
   padding: 10px 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color);
   cursor: pointer;
 }
 
 .hot-post-item:hover {
-  color: #409eff;
+  color: var(--neon-cyan);
 }
 
 .hot-post-title {
@@ -202,10 +203,37 @@ onMounted(() => {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: var(--text-primary);
 }
 
 .hot-post-stats {
   font-size: 12px;
-  color: #999;
+  color: var(--text-muted);
+}
+
+:deep(.el-card) {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+:deep(.el-card__header) {
+  border-bottom: 1px solid var(--border-color);
+  color: var(--neon-cyan);
+}
+
+.forum-header :deep(.el-input__wrapper) {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  box-shadow: none;
+}
+
+.forum-header :deep(.el-input__inner) {
+  color: var(--text-primary);
+}
+
+.forum-header :deep(.el-button--primary) {
+  background: var(--gradient-btn);
+  border: none;
 }
 </style>

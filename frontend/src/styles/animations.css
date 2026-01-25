@@ -1,0 +1,67 @@
+/* 霓虹发光动画 */
+@keyframes neonPulse {
+  0%, 100% { box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan); }
+  50% { box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-cyan); }
+}
+
+@keyframes neonPulsePink {
+  0%, 100% { box-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink); }
+  50% { box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink); }
+}
+
+/* 扫描线效果 */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+/* 渐变流动 */
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 闪烁效果 */
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+/* 边框流光 */
+@keyframes borderGlow {
+  0% { border-color: var(--neon-cyan); }
+  50% { border-color: var(--neon-pink); }
+  100% { border-color: var(--neon-cyan); }
+}
+
+/* 工具类 */
+.neon-text {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 10px var(--neon-cyan);
+}
+
+.neon-border {
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-neon);
+}
+
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+.cyber-btn {
+  background: var(--gradient-btn);
+  color: var(--bg-primary);
+  border: none;
+  font-weight: bold;
+  transition: var(--transition-fast);
+}
+
+.cyber-btn:hover {
+  box-shadow: var(--shadow-neon);
+  transform: translateY(-2px);
+}

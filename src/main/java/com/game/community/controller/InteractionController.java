@@ -140,16 +140,27 @@ public class InteractionController {
         QueryWrapper<PostCollect> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId).eq("post_id", postId);
         postCollectMapper.delete(queryWrapper);
-        
+
         ForumPost post = forumPostMapper.selectById(postId);
         if (post != null && post.getCollectCount() > 0) {
             post.setCollectCount(post.getCollectCount() - 1);
             forumPostMapper.updateById(post);
         }
-        
+
         return Result.success("取消收藏成功");
     }
-    
+
+    /**
+     * 检查是否已收藏帖子
+     */
+    @GetMapping("/post/collect/check")
+    public Result<Boolean> checkPostCollected(@RequestParam Long userId, @RequestParam Long postId) {
+        QueryWrapper<PostCollect> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId).eq("post_id", postId);
+        boolean collected = postCollectMapper.selectOne(queryWrapper) != null;
+        return Result.success(collected);
+    }
+
     // ========== 点赞功能 ==========
     
     /**

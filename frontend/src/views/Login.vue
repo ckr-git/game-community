@@ -72,26 +72,78 @@ const goRegister = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-container::before {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(0,255,245,0.1) 0%, transparent 70%);
+  top: -100px;
+  right: -100px;
+}
+
+.login-container::after {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255,0,255,0.1) 0%, transparent 70%);
+  bottom: -100px;
+  left: -100px;
 }
 
 .login-card {
-  width: 400px;
+  width: 420px;
   padding: 40px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-neon);
+  position: relative;
+  z-index: 1;
 }
 
 .login-card h2 {
   text-align: center;
   margin-bottom: 30px;
-  color: #333;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 10px var(--neon-cyan);
 }
 
 .login-footer {
   text-align: center;
   margin-top: 20px;
-  color: #666;
+  color: var(--text-secondary);
+}
+
+.login-card :deep(.el-input__wrapper) {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  box-shadow: none;
+}
+
+.login-card :deep(.el-input__wrapper:hover),
+.login-card :deep(.el-input__wrapper.is-focus) {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(0, 255, 245, 0.2);
+}
+
+.login-card :deep(.el-input__inner) {
+  color: var(--text-primary);
+}
+
+.login-card :deep(.el-button--primary) {
+  background: var(--gradient-btn);
+  border: none;
+}
+
+.login-card :deep(.el-button--primary:hover) {
+  box-shadow: var(--shadow-neon);
 }
 </style>

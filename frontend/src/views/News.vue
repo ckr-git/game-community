@@ -47,6 +47,9 @@ import { ElMessage } from 'element-plus'
 import request from '@/api/request'
 import { View, ChatDotRound } from '@element-plus/icons-vue'
 
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 const newsList = ref([])
 const latestNews = ref([])
 const pageNum = ref(1)
@@ -80,7 +83,7 @@ const formatDate = (dateStr) => {
 }
 
 const goToNews = (id) => {
-  ElMessage.info('资讯详情页面开发中')
+  router.push(`/news/${id}`)
 }
 
 onMounted(() => {

@@ -1,0 +1,38 @@
+/* 全局重置与基础样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Rajdhani', 'Microsoft YaHei', sans-serif;
+  line-height: 1.6;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neon-cyan);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-pink);
+}
+
+/* 选中文字样式 */
+::selection {
+  background: var(--neon-cyan);
+  color: var(--bg-primary);
+}

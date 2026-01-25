@@ -6,6 +6,11 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import App from './App.vue'
 import router from './router'
 
+// 赛博朋克主题样式
+import './styles/variables.css'
+import './styles/theme.css'
+import './styles/animations.css'
+
 const app = createApp(App)
 const pinia = createPinia()
 

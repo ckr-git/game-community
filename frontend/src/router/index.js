@@ -32,10 +32,22 @@ const routes = [
         meta: { title: '游戏资讯' }
       },
       {
+        path: '/news/:id',
+        name: 'NewsDetail',
+        component: () => import('@/views/NewsDetail.vue'),
+        meta: { title: '资讯详情' }
+      },
+      {
         path: '/forum',
         name: 'Forum',
         component: () => import('@/views/Forum.vue'),
         meta: { title: '论坛社区' }
+      },
+      {
+        path: '/forum/:id',
+        name: 'PostDetail',
+        component: () => import('@/views/PostDetail.vue'),
+        meta: { title: '帖子详情' }
       },
       {
         path: '/chat',
@@ -86,6 +98,24 @@ const routes = [
         name: 'AdminGames',
         component: () => import('@/views/admin/Games.vue'),
         meta: { title: '游戏管理' }
+      },
+      {
+        path: 'news',
+        name: 'AdminNews',
+        component: () => import('@/views/admin/News.vue'),
+        meta: { title: '资讯管理' }
+      },
+      {
+        path: 'posts',
+        name: 'AdminPosts',
+        component: () => import('@/views/admin/Posts.vue'),
+        meta: { title: '帖子管理' }
+      },
+      {
+        path: 'banners',
+        name: 'AdminBanners',
+        component: () => import('@/views/admin/Banners.vue'),
+        meta: { title: '轮播图管理' }
       }
     ]
   }

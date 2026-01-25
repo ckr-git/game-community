@@ -10,13 +10,21 @@
           </div>
           <el-divider />
           <div class="user-stats">
-            <div class="stat-item">
+            <div class="stat-item" @click="activeTab = 'collections'">
               <div class="stat-value">{{ collections.length }}</div>
               <div class="stat-label">收藏</div>
             </div>
-            <div class="stat-item">
+            <div class="stat-item" @click="activeTab = 'posts'">
               <div class="stat-value">{{ posts.length }}</div>
               <div class="stat-label">帖子</div>
+            </div>
+            <div class="stat-item" @click="activeTab = 'following'">
+              <div class="stat-value">{{ followingCount }}</div>
+              <div class="stat-label">关注</div>
+            </div>
+            <div class="stat-item" @click="activeTab = 'followers'">
+              <div class="stat-value">{{ followersCount }}</div>
+              <div class="stat-label">粉丝</div>
             </div>
           </div>
         </el-card>
@@ -51,14 +59,20 @@
 
             <el-tab-pane label="我的收藏" name="collections">
               <div v-for="item in collections" :key="item.id" class="collection-item">
-                <span>游戏ID: {{ item.gameId }}</span>
-                <span>{{ formatDate(item.createTime) }}</span>
+                <div class="collection-info">
+                  <img :src="item.coverImage || '/default-game.jpg'" class="game-cover" />
+                  <div class="game-detail">
+                    <div class="game-name">{{ item.gameName || '游戏' + item.gameId }}</div>
+                    <div class="game-meta">收藏于 {{ formatDate(item.createTime) }}</div>
+                  </div>
+                </div>
+                <el-button size="small" type="danger" @click="cancelCollect(item)">取消收藏</el-button>
               </div>
               <el-empty v-if="collections.length === 0" description="暂无收藏" />
             </el-tab-pane>
 
             <el-tab-pane label="我的帖子" name="posts">
-              <div v-for="post in posts" :key="post.id" class="post-item">
+              <div v-for="post in posts" :key="post.id" class="post-item" @click="goToPost(post.id)">
                 <div class="post-title">{{ post.title }}</div>
                 <div class="post-meta">
                   <span>{{ post.viewCount }} 浏览</span>
@@ -66,6 +80,27 @@
                 </div>
               </div>
               <el-empty v-if="posts.length === 0" description="暂无帖子" />
+            </el-tab-pane>
+
+            <el-tab-pane label="我的关注" name="following">
+              <div v-for="user in followingList" :key="user.id" class="user-item">
+                <el-avatar :size="40" :src="user.avatar || '/default-avatar.png'" />
+                <div class="user-detail">
+                  <div class="user-name">{{ user.nickname || user.username }}</div>
+                </div>
+                <el-button size="small" @click="unfollow(user.id)">取消关注</el-button>
+              </div>
+              <el-empty v-if="followingList.length === 0" description="暂无关注" />
+            </el-tab-pane>
+
+            <el-tab-pane label="我的粉丝" name="followers">
+              <div v-for="user in followersList" :key="user.id" class="user-item">
+                <el-avatar :size="40" :src="user.avatar || '/default-avatar.png'" />
+                <div class="user-detail">
+                  <div class="user-name">{{ user.nickname || user.username }}</div>
+                </div>
+              </div>
+              <el-empty v-if="followersList.length === 0" description="暂无粉丝" />
             </el-tab-pane>
           </el-tabs>
         </el-card>
@@ -76,15 +111,20 @@
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { userApi } from '@/api'
 import request from '@/api/request'
 
+const router = useRouter()
 const userInfo = ref(JSON.parse(localStorage.getItem('userInfo') || '{}'))
 const activeTab = ref('info')
 const collections = ref([])
 const posts = ref([])
-
+const followingList = ref([])
+const followersList = ref([])
+const followingCount = ref(0)
+const followersCount = ref(0)
 const editForm = reactive({
   nickname: '',
   email: '',
@@ -142,10 +182,52 @@ const formatDate = (dateStr) => {
   return new Date(dateStr).toLocaleDateString()
 }
 
+const loadFollowData = async () => {
+  if (!userInfo.value.userId) return
+  try {
+    const [followingRes, followersRes] = await Promise.all([
+      request.get(`/follow/following/${userInfo.value.userId}`),
+      request.get(`/follow/followers/${userInfo.value.userId}`)
+    ])
+    followingList.value = followingRes.data || []
+    followersList.value = followersRes.data || []
+    followingCount.value = followingList.value.length
+    followersCount.value = followersList.value.length
+  } catch (error) {
+    console.error('加载关注数据失败', error)
+  }
+}
+
+const cancelCollect = async (item) => {
+  try {
+    await request.delete(`/collect/game/${item.gameId}`)
+    collections.value = collections.value.filter(c => c.id !== item.id)
+    ElMessage.success('取消收藏成功')
+  } catch (error) {
+    ElMessage.error('操作失败')
+  }
+}
+
+const unfollow = async (userId) => {
+  try {
+    await request.delete(`/follow/${userId}`)
+    followingList.value = followingList.value.filter(u => u.id !== userId)
+    followingCount.value = followingList.value.length
+    ElMessage.success('取消关注成功')
+  } catch (error) {
+    ElMessage.error('操作失败')
+  }
+}
+
+const goToPost = (id) => {
+  router.push(`/forum/${id}`)
+}
+
 onMounted(() => {
   loadUserInfo()
   loadCollections()
   loadPosts()
+  loadFollowData()
 })
 </script>
 
@@ -175,6 +257,11 @@ onMounted(() => {
 
 .stat-item {
   text-align: center;
+  cursor: pointer;
+}
+
+.stat-item:hover {
+  opacity: 0.8;
 }
 
 .stat-value {
@@ -207,5 +294,51 @@ onMounted(() => {
 
 .post-meta span {
   margin-left: 15px;
+}
+
+.collection-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.game-cover {
+  width: 80px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.game-name {
+  font-weight: bold;
+}
+
+.game-meta {
+  font-size: 12px;
+  color: #999;
+}
+
+.user-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.user-detail {
+  flex: 1;
+}
+
+.user-name {
+  font-weight: bold;
+}
+
+.post-item {
+  cursor: pointer;
+}
+
+.post-item:hover {
+  background: #f5f5f5;
 }
 </style>

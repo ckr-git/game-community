@@ -3,7 +3,7 @@
     <el-container>
       <el-aside width="200px">
         <div class="logo">管理后台</div>
-        <el-menu :default-active="activeMenu" router background-color="#304156" text-color="#bfcbd9" active-text-color="#409eff">
+        <el-menu :default-active="activeMenu" router background-color="#1a1a2e" text-color="#a0a0c0" active-text-color="#00fff5">
           <el-menu-item index="/admin/dashboard">
             <el-icon><DataBoard /></el-icon>
             <span>数据统计</span>
@@ -13,8 +13,20 @@
             <span>用户管理</span>
           </el-menu-item>
           <el-menu-item index="/admin/games">
-            <el-icon><GameController /></el-icon>
+            <el-icon><Monitor /></el-icon>
             <span>游戏管理</span>
+          </el-menu-item>
+          <el-menu-item index="/admin/news">
+            <el-icon><Document /></el-icon>
+            <span>资讯管理</span>
+          </el-menu-item>
+          <el-menu-item index="/admin/posts">
+            <el-icon><ChatDotRound /></el-icon>
+            <span>帖子管理</span>
+          </el-menu-item>
+          <el-menu-item index="/admin/banners">
+            <el-icon><Picture /></el-icon>
+            <span>轮播图管理</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
@@ -49,7 +61,7 @@
 import { ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import { DataBoard, User, GameController } from '@element-plus/icons-vue'
+import { DataBoard, User, Monitor, Document, ChatDotRound, Picture } from '@element-plus/icons-vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -71,24 +83,28 @@ const handleCommand = (command) => {
 <style scoped>
 .admin-layout {
   height: 100vh;
+  background: var(--bg-primary);
 }
 
 .el-aside {
-  background-color: #304156;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
 }
 
 .logo {
-  height: 60px;
-  line-height: 60px;
+  height: 64px;
+  line-height: 64px;
   text-align: center;
-  color: white;
+  color: var(--neon-cyan);
   font-size: 18px;
   font-weight: bold;
+  text-shadow: 0 0 10px var(--neon-cyan);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .admin-header {
-  background: white;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -99,9 +115,10 @@ const handleCommand = (command) => {
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  color: var(--text-primary);
 }
 
 .el-main {
-  background: #f0f2f5;
+  background: var(--bg-primary);
 }
 </style>
