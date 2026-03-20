@@ -71,7 +71,7 @@
       </el-main>
 
       <el-footer class="footer">
-        <div>© 2024 游戏社区交流平台 | SpringBoot + Vue3</div>
+        <div>© 2025 游戏社区交流平台 | SpringBoot + Vue3</div>
       </el-footer>
     </el-container>
   </div>

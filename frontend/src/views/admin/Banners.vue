@@ -16,7 +16,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="title" label="标题" />
-        <el-table-column prop="sort" label="排序" width="80" />
+        <el-table-column prop="sortOrder" label="排序" width="80" />
         <el-table-column prop="status" label="状态" width="100">
           <template #default="{ row }">
             <el-tag :type="row.status === 1 ? 'success' : 'info'">
@@ -48,7 +48,7 @@
           <el-input v-model="form.linkUrl" placeholder="请输入跳转链接" />
         </el-form-item>
         <el-form-item label="排序">
-          <el-input-number v-model="form.sort" :min="0" :max="100" />
+          <el-input-number v-model="form.sortOrder" :min="0" :max="100" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -68,12 +68,12 @@ const loading = ref(false)
 const banners = ref([])
 const dialogVisible = ref(false)
 const isEdit = ref(false)
-const form = reactive({ id: null, title: '', imageUrl: '', linkUrl: '', sort: 0 })
+const form = reactive({ id: null, title: '', imageUrl: '', linkUrl: '', sortOrder: 0 })
 
 const loadBanners = async () => {
   loading.value = true
   try {
-    const res = await request.get('/banner/list')
+    const res = await request.get('/common/banners')
     banners.value = res.data || []
   } catch (error) {
     console.error('加载轮播图失败', error)
@@ -91,7 +91,7 @@ const openDialog = (row = null) => {
     form.title = ''
     form.imageUrl = ''
     form.linkUrl = ''
-    form.sort = 0
+    form.sortOrder = 0
   }
   dialogVisible.value = true
 }
@@ -103,9 +103,9 @@ const handleSubmit = async () => {
   }
   try {
     if (isEdit.value) {
-      await request.put(`/banner/${form.id}`, form)
+      await request.put(`/common/banners/${form.id}`, form)
     } else {
-      await request.post('/banner', form)
+      await request.post('/common/banners', form)
     }
     ElMessage.success(isEdit.value ? '更新成功' : '添加成功')
     dialogVisible.value = false
@@ -117,7 +117,7 @@ const handleSubmit = async () => {
 
 const toggleStatus = async (row) => {
   try {
-    await request.put(`/banner/${row.id}`, { status: row.status === 1 ? 0 : 1 })
+    await request.put(`/common/banners/${row.id}`, { status: row.status === 1 ? 0 : 1 })
     row.status = row.status === 1 ? 0 : 1
     ElMessage.success('操作成功')
   } catch (error) {
@@ -128,7 +128,7 @@ const toggleStatus = async (row) => {
 const handleDelete = (row) => {
   ElMessageBox.confirm('确定删除该轮播图？', '提示', { type: 'warning' })
     .then(async () => {
-      await request.delete(`/banner/${row.id}`)
+      await request.delete(`/common/banners/${row.id}`)
       ElMessage.success('删除成功')
       loadBanners()
     })

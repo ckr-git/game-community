@@ -24,3 +24,6 @@ nul
 # Temp
 *.tmp
 *.bak
+
+# Claude Code
+.claude/

@@ -46,9 +46,9 @@
                 </el-form-item>
                 <el-form-item label="性别">
                   <el-radio-group v-model="editForm.gender">
-                    <el-radio :label="0">保密</el-radio>
-                    <el-radio :label="1">男</el-radio>
-                    <el-radio :label="2">女</el-radio>
+                    <el-radio :value="0">保密</el-radio>
+                    <el-radio :value="1">男</el-radio>
+                    <el-radio :value="2">女</el-radio>
                   </el-radio-group>
                 </el-form-item>
                 <el-form-item>
@@ -208,10 +208,10 @@ const cancelCollect = async (item) => {
   }
 }
 
-const unfollow = async (userId) => {
+const unfollow = async (targetUserId) => {
   try {
-    await request.delete(`/follow/${userId}`)
-    followingList.value = followingList.value.filter(u => u.id !== userId)
+    await request.delete(`/follow/${targetUserId}`, { params: { userId: userInfo.value.userId } })
+    followingList.value = followingList.value.filter(u => u.id !== targetUserId)
     followingCount.value = followingList.value.length
     ElMessage.success('取消关注成功')
   } catch (error) {

@@ -64,16 +64,28 @@
 import { ref, onMounted } from 'vue'
 import * as echarts from 'echarts'
 import { gameApi } from '@/api'
+import request from '@/api/request'
 import { User, Monitor, Document, ChatDotRound } from '@element-plus/icons-vue'
 
 const stats = ref({
-  userCount: 128,
-  gameCount: 56,
-  postCount: 342,
-  commentCount: 1205
+  userCount: 0,
+  gameCount: 0,
+  postCount: 0,
+  commentCount: 0
 })
 const hotGames = ref([])
 const chartRef = ref(null)
+
+const loadStats = async () => {
+  try {
+    const res = await request.get('/admin/stats')
+    if (res.data) {
+      stats.value = res.data
+    }
+  } catch (error) {
+    console.error('加载统计数据失败', error)
+  }
+}
 
 const loadHotGames = async () => {
   try {
@@ -112,6 +124,7 @@ const initChart = () => {
 }
 
 onMounted(() => {
+  loadStats()
   loadHotGames()
   initChart()
 })

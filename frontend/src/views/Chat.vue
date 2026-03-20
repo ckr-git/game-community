@@ -4,14 +4,17 @@
       <el-col :span="6">
         <el-card class="room-list">
           <template #header>聊天室列表</template>
-          <div v-for="room in rooms" :key="room.id" 
-               :class="['room-item', { active: currentRoom?.id === room.id }]"
-               @click="joinRoom(room)">
-            <div class="room-name">{{ room.name }}</div>
-            <div class="room-info">
-              <span>在线: {{ room.memberCount }}</span>
+          <template v-if="rooms.length">
+            <div v-for="room in rooms" :key="room.id"
+                 :class="['room-item', { active: currentRoom?.id === room.id }]"
+                 @click="joinRoom(room)">
+              <div class="room-name">{{ room.name }}</div>
+              <div class="room-info">
+                <span>在线: {{ room.memberCount }}</span>
+              </div>
             </div>
-          </div>
+          </template>
+          <el-empty v-else description="暂无聊天室" :image-size="80" />
         </el-card>
       </el-col>
       

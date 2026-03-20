@@ -80,9 +80,7 @@ const newsList = ref([])
 const hotPosts = ref([])
 const announcements = ref([])
 const banners = ref([
-  { id: 1, title: '热门游戏推荐', imageUrl: '', color: '#00fff5' },
-  { id: 2, title: '新游戏上线', imageUrl: '', color: '#ff00ff' },
-  { id: 3, title: '社区活动', imageUrl: '', color: '#bd00ff' }
+  { id: 0, title: '欢迎来到游戏社区', imageUrl: '', color: '#00fff5' }
 ])
 
 const loadHotGames = async () => {

@@ -98,10 +98,13 @@
 │   │   │   ├── config/                             # 配置类
 │   │   │   │   ├── MyBatisPlusConfig.java         # MyBatis-Plus配置
 │   │   │   │   ├── WebSocketConfig.java           # WebSocket配置
-│   │   │   │   └── CorsConfig.java                # 跨域配置
+│   │   │   │   ├── CorsConfig.java                # 跨域+拦截器注册
+│   │   │   │   └── JwtInterceptor.java            # JWT认证拦截器
 │   │   │   ├── controller/                         # 控制器
 │   │   │   │   ├── UserController.java            # 用户控制器
-│   │   │   │   └── GameController.java            # 游戏控制器
+│   │   │   │   ├── GameController.java            # 游戏控制器
+│   │   │   │   ├── AdminController.java           # 管理后台统计
+│   │   │   │   └── FollowController.java          # 用户关注
 │   │   │   ├── entity/                             # 实体类
 │   │   │   │   ├── User.java                      # 用户实体
 │   │   │   │   ├── Game.java                      # 游戏实体
@@ -117,6 +120,7 @@
 │   │   │       └── ChatWebSocket.java             # 聊天WebSocket
 │   │   └── resources/
 │   │       ├── application.yml                     # 配置文件
+│   │       ├── seed-data.sql                       # 种子数据
 │   │       └── mapper/                             # MyBatis XML
 │   └── test/                                        # 测试
 ├── frontend/                                        # Vue3前端项目
@@ -140,6 +144,9 @@
 ```bash
 # 执行database.sql创建数据库和表
 mysql -u root -p < database.sql
+
+# 导入种子数据（游戏、资讯、聊天室、轮播图、公告）
+mysql -u root -p --default-character-set=utf8mb4 game_community < src/main/resources/seed-data.sql
 ```
 
 2. **修改配置**

@@ -2,6 +2,7 @@ package com.game.community.controller;
 
 import cn.hutool.crypto.digest.BCrypt;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.game.community.common.JwtUtil;
 import com.game.community.common.Result;
 import com.game.community.entity.User;
@@ -84,6 +85,18 @@ public class UserController {
         return Result.success(response);
     }
     
+    /**
+     * 获取用户列表（管理员）
+     */
+    @GetMapping("/list")
+    public Result<Page<User>> getUserList(@RequestParam(defaultValue = "1") Integer pageNum,
+                                          @RequestParam(defaultValue = "10") Integer pageSize) {
+        Page<User> page = new Page<>(pageNum, pageSize);
+        Page<User> result = userMapper.selectPage(page, new QueryWrapper<User>().orderByDesc("id"));
+        result.getRecords().forEach(u -> u.setPassword(null));
+        return Result.success(result);
+    }
+
     /**
      * 获取用户信息
      */
